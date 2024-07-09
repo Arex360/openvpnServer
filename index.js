@@ -100,7 +100,7 @@ function generateClientConfig(client, homeDir, tlsSig) {
   }
 }
 
-app.post('/generate-client', (req, res) => {
+app.get('/get', (req, res) => {
   const clientLength = 16;
   let client = generateRandomName(clientLength);
 
@@ -145,7 +145,7 @@ app.post('/generate-client', (req, res) => {
     }
   });
 });
-
+app.get('/',(req,res)=>res.send("ok"))
 app.listen(80, () => {
   console.log(`Server is running on http://localhost:${80}`);
 });
