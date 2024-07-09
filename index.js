@@ -66,11 +66,12 @@ function generateClientConfig(client, homeDir, tlsSig) {
 
   try {
     const configLines = [
+      fs.readFileSync(templatePath, 'utf8'),
       '<ca>',
       fs.readFileSync(caCertPath, 'utf8'),
       '</ca>',
       '<cert>',
-      fs.readFileSync(clientCertPath, 'utf8').match(/(-----BEGIN CERTIFICATE-----[\s\S]*?-----END CERTIFICATE-----)/),
+      fs.readFileSync(clientCertPath, 'utf8').match(/(-----BEGIN CERTIFICATE-----[\s\S]*?-----END CERTIFICATE-----)/)[0],
       '</cert>',
       '<key>',
       fs.readFileSync(clientKeyPath, 'utf8'),
@@ -145,7 +146,9 @@ app.get('/get', (req, res) => {
     }
   });
 });
-app.get('/',(req,res)=>res.send("ok"))
-app.listen(3000, () => {
-  console.log(`Server is running on http://localhost:${3000}`);
+
+app.get('/', (req, res) => res.send("ok"));
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
